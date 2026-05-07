@@ -4,12 +4,12 @@ import "./App.css";
 
 function App() {
   const [message, setMessage] = useState("");
-
+  const [dashboardData, setDashboardData] = useState({});
   useEffect(() => {
     axios
       .get("http://localhost:8080/")
       .then((response) => {
-        setMessage(response.data);
+        setDashboardData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -25,22 +25,26 @@ function App() {
       <div className="cards">
         <div className="card">
           <h2>Risk Score</h2>
-          <p>72%</p>
+          <p>{dashboardData.riskScore}</p>
         </div>
 
         <div className="card">
           <h2>Devices Monitored</h2>
-          <p>128</p>
+          <p>{dashboardData.devices}</p>
         </div>
 
         <div className="card">
           <h2>Threat Alerts</h2>
-          <p style={{ color: "red" }}>5</p>
+          <p style={{ color: "red" }}>
+           {dashboardData.alerts}
+          </p>
         </div>
 
         <div className="card">
           <h2>Compliance Status</h2>
-          <p style={{ color: "lightgreen" }}>Secure</p>
+          <p style={{ color: "lightgreen" }}>
+            {dashboardData.status}
+          </p>
         </div>
       </div>
     </div>
