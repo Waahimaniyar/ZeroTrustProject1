@@ -1,59 +1,80 @@
-body {
+body{
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #001f4d, #003366);
+  background: #002b6b;
+  color: white;
 }
 
-.login-container {
-  height: 100vh;
+.dashboard-container{
+  text-align: center;
+  padding: 40px;
+}
+
+h1{
+  margin-bottom: 20px;
+  font-size: 45px;
+}
+
+.logout-btn{
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #38bdf8;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+.cards-container{
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
-.login-card {
-  background: rgba(255, 255, 255, 0.08);
+.card{
+  background: #2b2f77;
   padding: 40px;
-  width: 350px;
+  width: 220px;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  color: white;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
 }
 
-.login-card h1 {
-  margin-bottom: 10px;
-  font-size: 32px;
+.card h2{
+  font-size: 28px;
 }
 
-.login-card p {
-  margin-bottom: 30px;
-  color: #d1d1d1;
+.card p{
+  font-size: 45px;
+  font-weight: bold;
 }
 
-.login-card input {
-  width: 100%;
-  padding: 14px;
+.alerts-section{
+  margin-top: 60px;
+}
+
+.alerts-section h2{
   margin-bottom: 20px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
 }
 
-.login-card button {
-  width: 100%;
-  padding: 14px;
-  border: none;
+table{
+  width: 60%;
+  margin: auto;
+  border-collapse: collapse;
+  background: white;
+  color: black;
   border-radius: 10px;
-  background: #00bfff;
+  overflow: hidden;
+}
+
+th{
+  background: #38bdf8;
   color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: 0.3s;
+  padding: 15px;
 }
 
-.login-card button:hover {
-  background: #009acd;
-  transform: scale(1.03);
+td{
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
 }

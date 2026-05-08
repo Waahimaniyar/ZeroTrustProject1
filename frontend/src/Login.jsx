@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 
@@ -5,21 +6,49 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleLogin = () => {
-    navigate("/dashboard");
+
+    if (username === "admin" && password === "admin123") {
+      navigate("/dashboard");
+    } else {
+      alert("Invalid Credentials");
+    }
   };
 
   return (
+
     <div className="login-container">
+
       <div className="login-box">
-        <h1>🛡 Zero Trust Security</h1>
+
+        <h1>🛡️ Zero Trust Security</h1>
+
         <p>Secure Cybersecurity Dashboard</p>
 
-        <input type="text" placeholder="Enter Username" />
-        <input type="password" placeholder="Enter Password" />
+        <input
+          type="text"
+          placeholder="Enter Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-        <button onClick={handleLogin}>Login</button>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button onClick={handleLogin}>
+          Login
+        </button>
+
       </div>
+      
+
     </div>
   );
 }
