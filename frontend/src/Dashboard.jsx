@@ -1,86 +1,245 @@
-import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 function Dashboard() {
 
   const navigate = useNavigate();
 
-  return (
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
+
+  const logout = () => {
+    navigate("/");
+  };
+
+  const data = [
+    { name: "Mon", risk: 40 },
+    { name: "Tue", risk: 55 },
+    { name: "Wed", risk: 30 },
+    { name: "Thu", risk: 70 },
+    { name: "Fri", risk: 60 },
+  ];
+
+  if (loading) {
+    return (
+      <div className="loader">
+        Loading Security Dashboard...
+      </div>
+    );
+  }
+
+  return (
     <div className="dashboard-container">
 
-      <h1>🛡️ Zero Trust Dashboard</h1>
+      {/* SIDEBAR */}
 
-      <button
-        className="logout-btn"
-        onClick={() => navigate("/")}
-      >
-        Logout
-      </button>
+      <div className="sidebar">
 
-      <div className="cards-container">
+        <h2>🛡 Zero Trust</h2>
 
-        <div className="card">
-          <h2>Risk Score</h2>
-          <p>72%</p>
-        </div>
-
-        <div className="card">
-          <h2>Devices</h2>
-          <p>128</p>
-        </div>
-
-        <div className="card">
-          <h2>Threat Alerts</h2>
-          <p>5</p>
-        </div>
-
-        <div className="card">
-          <h2>Firewall</h2>
-          <p>Active</p>
-        </div>
+        <ul>
+          <li>🏠 Dashboard</li>
+          <li>💻 Devices</li>
+          <li>🚨 Threat Alerts</li>
+          <li>🔥 Firewall</li>
+          <li>⚙ Settings</li>
+        </ul>
 
       </div>
 
-      <div className="alerts-section">
+      {/* MAIN CONTENT */}
 
-        <h2>🚨 Live Threat Alerts</h2>
+      <div className="main-content">
 
-        <table>
+        {/* TOP BAR */}
 
-          <thead>
-            <tr>
-              <th>Device</th>
-              <th>Status</th>
-            </tr>
-          </thead>
+        <div className="top-bar">
 
-          <tbody>
+          <div>
+            <h1>🛡 Zero Trust Dashboard</h1>
 
-            <tr>
-              <td>Laptop-01</td>
-              <td>Safe</td>
-            </tr>
+            <h2 className="clock">
+              {new Date().toLocaleTimeString()}
+            </h2>
+          </div>
 
-            <tr>
-              <td>Server-02</td>
-              <td>Threat Detected</td>
-            </tr>
+          <div className="top-right">
 
-            <tr>
-              <td>Mobile-03</td>
-              <td>Safe</td>
-            </tr>
+            <button className="notify-btn">🔔</button>
 
-          </tbody>
+            <div className="admin-box">👤 Admin</div>
 
-        </table>
+          </div>
+
+        </div>
+
+        {/* LOGOUT */}
+
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
+
+        {/* CARDS */}
+
+        <div className="card-container">
+
+          <div className="card">
+            <h2>Risk Score</h2>
+            <p>72%</p>
+          </div>
+
+          <div className="card">
+            <h2>Devices</h2>
+            <p>128</p>
+          </div>
+
+          <div className="card">
+            <h2>Threat Alerts</h2>
+            <p>5</p>
+          </div>
+
+          <div className="card">
+            <h2>Firewall</h2>
+            <p>Active</p>
+          </div>
+
+        </div>
+
+        {/* THREAT TABLE */}
+
+        <div className="table-section">
+
+          <h2>🚨 Live Threat Alerts</h2>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Device</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Laptop-01</td>
+                <td className="safe">Safe</td>
+              </tr>
+
+              <tr>
+                <td>Server-02</td>
+                <td className="danger">Threat Detected</td>
+              </tr>
+
+              <tr>
+                <td>Mobile-03</td>
+                <td className="safe">Safe</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        {/* CHART */}
+
+        <div className="chart-section">
+
+          <h2>📊 Risk Analysis</h2>
+
+          <ResponsiveContainer width="100%" height={300}>
+
+            <LineChart data={data}>
+
+              <XAxis dataKey="name" stroke="#ffffff" />
+
+              <YAxis stroke="#ffffff" />
+
+              <Tooltip />
+
+              <Line
+                type="monotone"
+                dataKey="risk"
+                stroke="#3bb7ff"
+                strokeWidth={4}
+              />
+
+            </LineChart>
+
+          </ResponsiveContainer>
+
+        </div>
+
+        {/* RECENT ACTIVITY */}
+
+        <div className="activity-section">
+
+          <h2>⚡ Recent Activity</h2>
+
+          <div className="activity-box">
+            User admin logged in
+          </div>
+
+          <div className="activity-box danger-activity">
+            Threat detected on Server-02
+          </div>
+
+          <div className="activity-box">
+            Firewall protection enabled
+          </div>
+
+        </div>
+
+        {/* STATUS SECTION */}
+
+        <div className="status-section">
+
+          <div className="status-box">
+
+            <h3>🟢 System Health</h3>
+
+            <div className="progress-bar">
+              <div className="progress-fill"></div>
+            </div>
+
+            <p>Security Level: Strong</p>
+
+          </div>
+
+          <div className="status-box warning-box">
+
+            <h3>⚠ Threat Level</h3>
+
+            <p className="threat-text">Medium Risk</p>
+
+          </div>
+
+        </div>
+
+        {/* FOOTER */}
+
+        <footer>
+          © 2026 Zero Trust Security Dashboard
+        </footer>
 
       </div>
-
-      <footer className="footer">
-        © 2026 Zero Trust Security Dashboard
-      </footer>
 
     </div>
   );
